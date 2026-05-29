@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My App Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --black:#08080f;--navy:#0d0d1f;--purple:#6c3fcc;--violet:#9b6bff;
+  --blue:#3b7bff;--sky:#7eb8ff;--white:#f4f2ff;--muted:#a09bc2;
+  --card-bg:#12112a;--border:rgba(155,107,255,.18);--radius:22px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.65;overflow-x:hidden;}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;line-height:1.15;}
+a{color:inherit;text-decoration:none;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 50% at 15% 20%,rgba(108,63,204,.28) 0%,transparent 70%),radial-gradient(ellipse 50% 60% at 85% 75%,rgba(59,123,255,.22) 0%,transparent 70%);pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2.5rem;background:rgba(8,8,15,.7);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;background:linear-gradient(95deg,var(--violet),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:.9rem;color:var(--muted);transition:color .25s;}
+.nav-links a:hover{color:var(--white);}
+.hero{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 5rem;}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(155,107,255,.12);border:1px solid var(--border);border-radius:999px;padding:.35rem 1rem;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;color:var(--violet);margin-bottom:2rem;animation:fadeUp .6s ease both;}
+.hero h1{font-size:clamp(2.8rem,7vw,5.5rem);font-weight:800;letter-spacing:-.02em;max-width:820px;animation:fadeUp .7s .1s ease both;}
+.grad{background:linear-gradient(105deg,var(--violet) 20%,var(--sky) 80%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{margin-top:1.5rem;font-size:1.15rem;color:var(--muted);max-width:520px;animation:fadeUp .7s .2s ease both;}
+.hero-cta{margin-top:2.5rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;animation:fadeUp .7s .3s ease both;}
+.pbtn{display:inline-block;padding:.75rem 1.9rem;border-radius:999px;font-family:'Syne',sans-serif;font-weight:600;font-size:.95rem;cursor:pointer;transition:transform .2s,box-shadow .2s;border:none;}
+.pbtn:hover{transform:translateY(-2px);}
+.pbtn-pri{background:linear-gradient(105deg,var(--purple),var(--blue));color:#fff;box-shadow:0 6px 28px rgba(108,63,204,.4);}
+.pbtn-ghost{border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.04);}
+.pbtn-ghost:hover{color:var(--white);border-color:var(--violet);}
+.orb{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;animation:drift 8s ease-in-out infinite alternate;}
+.orb-1{width:320px;height:320px;background:rgba(108,63,204,.18);top:10%;left:-8%;}
+.orb-2{width:260px;height:260px;background:rgba(59,123,255,.15);bottom:15%;right:-6%;animation-delay:-3s;}
+@keyframes drift{from{transform:translate(0,0);}to{transform:translate(30px,-30px);}}
+section{position:relative;z-index:1;}
+.sec{max-width:1200px;margin:0 auto;padding:5rem 2rem;}
+.sec-label{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);font-weight:500;margin-bottom:.75rem;}
+.sec-title{font-size:clamp(1.9rem,4vw,3rem);font-weight:800;margin-bottom:1rem;}
+.sec-desc{color:var(--muted);max-width:520px;margin-bottom:3.5rem;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0 2rem;}
+.proj-grid{display:grid;gap:3rem;}
+.proj-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .3s,box-shadow .3s;}
+.proj-card:hover{border-color:rgba(155,107,255,.38);box-shadow:0 12px 60px rgba(108,63,204,.18);}
+.card-hdr{padding:1.8rem 2.2rem 1.4rem;border-bottom:1px solid var(--border);}
+.card-meta{display:flex;align-items:center;gap:1rem;margin-bottom:.6rem;}
+.card-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;opacity:.2;}
+.card-tag{display:inline-flex;align-items:center;gap:.4rem;background:rgba(155,107,255,.12);border:1px solid var(--border);border-radius:999px;padding:.25rem .85rem;font-size:.75rem;color:var(--violet);}
+.card-title{font-size:1.45rem;font-weight:800;margin-bottom:.4rem;}
+.card-desc-txt{color:var(--muted);font-size:.92rem;}
+.card-body{display:grid;grid-template-columns:320px 1fr;}
+.card-app-pane{background:#1a1535;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:1.8rem;position:relative;overflow:hidden;}
+.card-app-pane::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(155,107,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(155,107,255,.04) 1px,transparent 1px);background-size:22px 22px;}
+.card-info{padding:2rem 2.2rem;display:flex;flex-direction:column;justify-content:center;gap:1.1rem;}
+.card-feats{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.card-feats li{font-size:.87rem;color:var(--muted);display:flex;align-items:flex-start;gap:.55rem;}
+.card-feats li::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--blue));flex-shrink:0;margin-top:.48rem;}
+.open-link{display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1.3rem;border-radius:999px;background:rgba(155,107,255,.12);border:1px solid var(--border);color:var(--violet);font-size:.83rem;font-family:'Syne',sans-serif;font-weight:600;transition:background .2s;width:fit-content;}
+.open-link:hover{background:rgba(155,107,255,.22);}
+
+/* ── PHONE SHELL ── */
+.phone{position:relative;z-index:1;width:260px;height:500px;background:#fff;border-radius:32px;border:5px solid #1a1a1a;box-shadow:0 20px 60px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.08) inset;overflow:hidden;display:flex;flex-direction:column;flex-shrink:0;}
+.phone-topbar{background:#111;height:24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.phone-notch{width:72px;height:12px;background:#000;border-radius:0 0 8px 8px;}
+.phone-screen{flex:1;overflow:hidden;position:relative;background:#fff;}
+
+/* ════════ SCHEDULE APP ════════ */
+.sa *{box-sizing:border-box;font-family:'DM Sans',sans-serif;}
+.sa{height:100%;display:flex;flex-direction:column;}
+.sa-screen{display:none;flex-direction:column;height:100%;overflow:hidden;}
+.sa-screen.active{display:flex;}
+
+/* Home screen */
+.sa-home{background:#ffffff;}
+.sa-green-banner{background:#43a047;padding:7px 10px;text-align:center;}
+.sa-green-banner p{color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.01em;}
+.sa-illo-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 12px;gap:6px;}
+.sa-illo{width:150px;height:105px;display:block;}
+.sa-welcome{font-size:14px;font-weight:700;color:#222;font-family:'Syne',sans-serif;}
+.sa-home-btns{display:flex;gap:6px;width:100%;padding:8px 10px 10px;}
+.sa-hbtn{flex:1;padding:9px 4px;border-radius:6px;border:none;font-weight:700;font-size:10px;cursor:pointer;line-height:1.3;transition:opacity .15s;}
+.sa-hbtn:hover{opacity:.85;}
+.sa-hbtn-light{background:#66bb6a;color:#fff;}
+.sa-hbtn-dark{background:#2e7d32;color:#fff;}
+
+/* Todo screen */
+.sa-todo-wrap{background:#f0f0f0;flex:1;overflow-y:auto;padding:8px 10px;display:flex;flex-direction:column;gap:6px;}
+.sa-todo-title{font-size:11px;font-weight:700;color:#333;margin-bottom:2px;}
+.sa-task-row{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #ddd;border-radius:5px;padding:6px 8px;}
+.sa-cb{width:16px;height:16px;accent-color:#43a047;cursor:pointer;flex-shrink:0;}
+.sa-ti{flex:1;border:none;outline:none;font-size:10px;color:#333;background:transparent;font-family:'DM Sans',sans-serif;}
+.sa-ti.done{text-decoration:line-through;color:#aaa;}
+.sa-del{background:none;border:none;cursor:pointer;font-size:13px;color:#666;padding:1px 3px;}
+.sa-del:hover{color:#c62828;}
+.sa-illo-bottom{width:100%;height:60px;background:linear-gradient(135deg,#388e3c,#43a047);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;}
+
+/* Tips screen */
+.sa-tips-wrap{background:#fff;flex:1;overflow-y:auto;padding:8px 10px;display:flex;flex-direction:column;gap:7px;}
+.sa-tips-hdr{background:#43a047;border-radius:8px;padding:6px 10px;display:flex;align-items:center;justify-content:space-between;}
+.sa-tips-hdr-title{color:#fff;font-weight:800;font-size:11px;font-family:'Syne',sans-serif;}
+.sa-tips-hdr-icon{color:#fff;font-size:12px;}
+.sa-tip-toggle-row{display:flex;gap:6px;}
+.sa-tip-toggle-btn{flex:1;background:#e8f5e9;border:2px solid #a5d6a7;border-radius:8px;padding:6px 4px;cursor:pointer;text-align:center;font-size:9px;font-weight:700;color:#2e7d32;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.sa-tip-toggle-btn.active,.sa-tip-toggle-btn:hover{background:#43a047;border-color:#2e7d32;color:#fff;}
+.sa-tip-toggle-btn .ti{font-size:1.3rem;display:block;margin-bottom:2px;}
+.sa-tip-text-box{background:#f9fff9;border:1px solid #c8e6c9;border-radius:7px;padding:8px;font-size:9.5px;color:#333;line-height:1.7;display:none;overflow-y:auto;max-height:160px;}
+.sa-tip-text-box.active{display:block;}
+.sa-tip-text-box p{margin-bottom:3px;}
+
+/* Advice screen */
+.sa-adv-wrap{background:#f5f5f5;flex:1;overflow-y:auto;padding:8px 10px;display:flex;flex-direction:column;gap:6px;}
+.sa-adv-title{font-size:11px;font-weight:700;color:#333;}
+.sa-adv-left-right{display:flex;gap:6px;}
+.sa-adv-btns{display:flex;flex-direction:column;gap:5px;flex:1;}
+.sa-adv-btn{padding:7px 5px;border-radius:6px;border:none;font-size:9px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;line-height:1.3;text-align:center;transition:opacity .15s;}
+.sa-adv-btn:hover{opacity:.85;}
+.sa-adv-btn.t{background:#7b1fa2;color:#fff;}
+.sa-adv-btn.b{background:#1565c0;color:#fff;}
+.sa-adv-btn.p{background:#2e7d32;color:#fff;font-size:8px;}
+.sa-adv-btn.f{background:#e65100;color:#fff;font-size:8px;}
+.sa-adv-img-box{width:90px;background:#fff;border:1px solid #ddd;border-radius:6px;display:flex;align-items:center;justify-content:center;min-height:90px;flex-shrink:0;}
+.sa-adv-img-box .big-emoji{font-size:2.8rem;}
+.sa-adv-content-box{background:#fff;border:1px solid #ddd;border-radius:6px;padding:7px;font-size:9px;color:#333;line-height:1.6;display:none;min-height:50px;}
+.sa-adv-content-box.active{display:block;}
+
+/* shared nav bar */
+.sa-nav{display:flex;gap:6px;padding:7px 10px;background:#fff;border-top:1px solid #e0e0e0;flex-shrink:0;}
+.sa-nb{flex:1;padding:7px 4px;border-radius:6px;border:none;font-weight:700;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.sa-nb-green{background:#43a047;color:#fff;}
+.sa-nb-blue{background:#1565c0;color:#fff;}
+
+/* ════════ OUTFIT APP ════════ */
+.oa *{box-sizing:border-box;font-family:'DM Sans',sans-serif;}
+.oa{height:100%;background:#fff;overflow-y:auto;padding:10px;}
+.oa-title-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.oa-title{font-size:12px;font-weight:700;color:#222;}
+.oa-icon{font-size:14px;}
+.oa-field{display:flex;flex-direction:column;gap:2px;margin-bottom:6px;}
+.oa-inp{width:100%;border:1px solid #ccc;border-radius:5px;padding:6px 8px;font-size:10px;color:#333;outline:none;background:#fafafa;font-family:'DM Sans',sans-serif;}
+.oa-inp:focus{border-color:#43a047;}
+.oa-inp::placeholder{color:#bbb;}
+.oa-row-box{display:flex;align-items:center;gap:0;border:1px solid #ccc;border-radius:5px;overflow:hidden;background:#fafafa;}
+.oa-row-label{font-size:10px;color:#444;font-weight:500;padding:6px 8px;white-space:nowrap;background:#f0f0f0;border-right:1px solid #ccc;}
+.oa-sel{flex:1;border:none;outline:none;background:transparent;font-size:10px;color:#333;padding:6px 6px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.oa-sel-pill{background:#43a047;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700;margin:3px 4px;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.oa-sel-pill-dark{background:#222;color:#fff;border:none;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:700;margin:3px 4px;cursor:pointer;}
+.oa-temp-row{border:1px solid #ccc;border-radius:5px;padding:5px 8px;background:#fafafa;}
+.oa-temp-label-row{display:flex;justify-content:space-between;font-size:9px;color:#666;margin-bottom:3px;}
+.oa-slider{width:100%;accent-color:#9c27b0;}
+.oa-output-box{border:1px solid #ccc;border-radius:5px;padding:7px 8px;background:#fafafa;min-height:50px;font-size:9.5px;color:#333;line-height:1.6;}
+
+/* ════════ FLAG GAME ════════ */
+.fa *{box-sizing:border-box;font-family:'DM Sans',sans-serif;}
+.fa{height:100%;display:flex;flex-direction:column;}
+.fa-main{background:#c0392b;flex:1;display:flex;flex-direction:column;align-items:center;padding:8px;gap:6px;overflow-y:auto;}
+.fa-main.hidden{display:none;}
+.fa-score-scr{background:#b03020;flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px;}
+.fa-score-scr.show{display:flex;}
+.fa-title-box{background:rgba(0,0,0,.25);border-radius:6px;padding:6px 10px;width:100%;text-align:center;}
+.fa-title-box p{color:#fff;font-size:9.5px;font-weight:700;line-height:1.4;}
+.fa-pts-wrap{background:rgba(0,0,0,.2);border-radius:5px;padding:4px 10px;width:100%;text-align:center;}
+.fa-pts-label{color:#fff;font-size:9px;font-weight:600;}
+.fa-pts-score-box{background:#fff;border-radius:4px;padding:3px 10px;min-height:28px;display:flex;align-items:center;justify-content:center;margin-top:2px;}
+.fa-pts-val{color:#222;font-size:13px;font-weight:800;font-family:'Syne',sans-serif;}
+.fa-flag-area{background:#fff;border-radius:6px;width:100%;min-height:110px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.fa-flag-area img{max-width:100%;max-height:100px;object-fit:contain;}
+.fa-no-img{font-size:2.5rem;color:#ccc;}
+.fa-answer-inp{width:100%;border:none;border-radius:5px;padding:7px 8px;font-size:10px;color:#333;outline:none;background:#e57373;color:#fff;font-family:'DM Sans',sans-serif;}
+.fa-answer-inp::placeholder{color:rgba(255,255,255,.8);}
+.fa-answer-inp:focus{background:#ef9a9a;}
+.fa-btn-yellow{width:100%;background:#f39c12;color:#fff;border:none;border-radius:5px;padding:8px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.fa-btn-orange{width:100%;background:#e67e22;color:#fff;border:none;border-radius:5px;padding:8px;font-size:10.5px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.fa-btn-yellow:hover,.fa-btn-orange:hover{opacity:.88;}
+.fa-feedback{color:#fff;font-size:9.5px;font-weight:700;text-align:center;min-height:18px;}
+/* score screen */
+.fa-score-title{color:#fff;font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;}
+.fa-score-box{background:#fff;border-radius:10px;padding:10px 30px;display:flex;align-items:baseline;gap:4px;}
+.fa-score-num{color:#c0392b;font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;}
+.fa-score-denom{color:#888;font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;}
+.fa-restart{background:#f39c12;color:#fff;border:none;border-radius:8px;padding:9px 24px;font-size:12px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;align-items:center;}
+.about-text h2{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:800;margin-bottom:1.2rem;}
+.about-text p{color:var(--muted);line-height:1.8;margin-bottom:.9rem;}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.skill-chip{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.4rem;transition:border-color .25s,background .25s;}
+.skill-chip:hover{border-color:rgba(155,107,255,.4);background:rgba(155,107,255,.07);}
+.skill-chip-icon{font-size:1.5rem;margin-bottom:.4rem;}
+.skill-chip-name{font-family:'Syne',sans-serif;font-weight:700;font-size:.95rem;}
+.skill-chip-sub{font-size:.8rem;color:var(--muted);margin-top:.2rem;}
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center;}
+footer p{color:var(--muted);font-size:.85rem;}
+.footer-grad{background:linear-gradient(105deg,var(--violet),var(--sky));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-weight:600;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@media(max-width:860px){.card-body{grid-template-columns:1fr;}.card-app-pane{border-right:none;border-bottom:1px solid var(--border);}.about-grid{grid-template-columns:1fr;}}
+@media(max-width:480px){.nav-links{display:none;}.card-hdr{padding:1.2rem;}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Portfolio.</div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="hero-badge">
+    <svg width="10" height="10" viewBox="0 0 10 10"><circle cx="5" cy="5" r="5" fill="#9b6bff"/></svg>
+    AP Computer Science Principles &nbsp;<span style="opacity:.7">· Final Project Portfolio</span>
+  </div>
+  <h1>Apps I Built<br/><span class="grad">This School Year</span></h1>
+  <p class="hero-sub">Three original projects built from scratch — fully playable right here on this page.</p>
+  <div class="hero-cta">
+    <a class="pbtn pbtn-pri" href="#projects">View My Projects</a>
+    <a class="pbtn pbtn-ghost" href="#about">About Me</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section id="projects">
+<div class="sec">
+  <p class="sec-label reveal">My Work</p>
+  <h2 class="sec-title reveal">Three Projects,<br/>Three Ideas</h2>
+  <p class="sec-desc reveal">Each app was designed and coded from scratch. Try them — they're fully interactive!</p>
+
+  <div class="proj-grid">
+
+    <!-- ═══════════ PROJECT 1: SCHEDULE BUILDER ═══════════ -->
+    <article class="proj-card reveal">
+      <div class="card-hdr">
+        <div class="card-meta"><span class="card-num">01</span><span class="card-tag">📅 Productivity</span></div>
+        <h3 class="card-title">Schedule Builder &amp; Time Manager</h3>
+        <p class="card-desc-txt">Organize your day, manage tasks, and get tips — all in one place.</p>
+      </div>
+      <div class="card-body">
+        <div class="card-app-pane">
+          <div class="phone">
+            <div class="phone-topbar"><div class="phone-notch"></div></div>
+            <div class="phone-screen">
+              <div class="sa" id="SA">
+
+                <!-- HOME -->
+                <div class="sa-screen sa-home active" id="sa-home">
+                  <div class="sa-green-banner"><p>Let's Make Sure That You Are Not Late</p></div>
+                  <div class="sa-illo-area">
+                    <!-- Illustration: person with checklist and ladder, colorful -->
+                    <svg class="sa-illo" viewBox="0 0 150 105" xmlns="http://www.w3.org/2000/svg">
+                      <!-- background -->
+                      <rect width="150" height="105" fill="#e8f5e9" rx="8"/>
+                      <!-- big checklist board -->
+                      <rect x="30" y="10" width="60" height="75" rx="5" fill="#fff" stroke="#aed581" stroke-width="2"/>
+                      <rect x="30" y="10" width="60" height="14" rx="5" fill="#66bb6a"/>
+                      <text x="60" y="21" text-anchor="middle" font-size="7" fill="#fff" font-weight="bold">MY TASKS</text>
+                      <!-- checkboxes -->
+                      <rect x="36" y="30" width="7" height="7" rx="1" fill="#a5d6a7"/>
+                      <polyline points="37,33 39,35 43,30" stroke="#2e7d32" stroke-width="1.5" fill="none"/>
+                      <line x1="46" y1="33" x2="82" y2="33" stroke="#ccc" stroke-width="1.5"/>
+                      <rect x="36" y="42" width="7" height="7" rx="1" fill="#a5d6a7"/>
+                      <polyline points="37,45 39,47 43,42" stroke="#2e7d32" stroke-width="1.5" fill="none"/>
+                      <line x1="46" y1="45" x2="82" y2="45" stroke="#ccc" stroke-width="1.5"/>
+                      <rect x="36" y="54" width="7" height="7" rx="1" fill="#fff" stroke="#ccc" stroke-width="1"/>
+                      <line x1="46" y1="57" x2="82" y2="57" stroke="#eee" stroke-width="1.5"/>
+                      <rect x="36" y="66" width="7" height="7" rx="1" fill="#fff" stroke="#ccc" stroke-width="1"/>
+                      <line x1="46" y1="69" x2="82" y2="69" stroke="#eee" stroke-width="1.5"/>
+                      <!-- ladder -->
+                      <line x1="100" y1="15" x2="100" y2="90" stroke="#8d6e63" stroke-width="3"/>
+                      <line x1="115" y1="15" x2="115" y2="90" stroke="#8d6e63" stroke-width="3"/>
+                      <line x1="100" y1="28" x2="115" y2="28" stroke="#a1887f" stroke-width="2"/>
+                      <line x1="100" y1="42" x2="115" y2="42" stroke="#a1887f" stroke-width="2"/>
+                      <line x1="100" y1="56" x2="115" y2="56" stroke="#a1887f" stroke-width="2"/>
+                      <line x1="100" y1="70" x2="115" y2="70" stroke="#a1887f" stroke-width="2"/>
+                      <!-- person -->
+                      <circle cx="108" cy="22" r="7" fill="#ffb74d"/>
+                      <rect x="103" y="30" width="10" height="18" rx="3" fill="#42a5f5"/>
+                      <line x1="103" y1="35" x2="96" y2="44" stroke="#ffb74d" stroke-width="2.5" stroke-linecap="round"/>
+                      <line x1="113" y1="35" x2="118" y2="28" stroke="#ffb74d" stroke-width="2.5" stroke-linecap="round"/>
+                      <line x1="106" y1="48" x2="104" y2="62" stroke="#1565c0" stroke-width="2.5" stroke-linecap="round"/>
+                      <line x1="110" y1="48" x2="112" y2="62" stroke="#1565c0" stroke-width="2.5" stroke-linecap="round"/>
+                      <!-- star decorations -->
+                      <text x="10" y="20" font-size="10">⭐</text>
+                      <text x="130" y="55" font-size="8">✨</text>
+                      <text x="5" y="75" font-size="8">💡</text>
+                    </svg>
+                    <span class="sa-welcome">Welcome</span>
+                  </div>
+                  <div class="sa-home-btns">
+                    <button class="sa-hbtn sa-hbtn-light" onclick="saGo('sa-tips')">Tips For<br/>You</button>
+                    <button class="sa-hbtn sa-hbtn-dark" onclick="saGo('sa-todo')">See Your<br/>Schedule</button>
+                  </div>
+                </div>
+
+                <!-- TO-DO -->
+                <div class="sa-screen" id="sa-todo">
+                  <div class="sa-todo-wrap" id="sa-task-list-wrap">
+                    <div class="sa-todo-title">📝 Your Schedule</div>
+                    <div id="sa-task-list"></div>
+                  </div>
+                  <div class="sa-illo-bottom">👨‍💼📋</div>
+                  <div class="sa-nav">
+                    <button class="sa-nb sa-nb-green" onclick="saGo('sa-home')">Home</button>
+                    <button class="sa-nb sa-nb-blue" onclick="saGo('sa-advice')">Advice For You</button>
+                  </div>
+                </div>
+
+                <!-- TIPS -->
+                <div class="sa-screen" id="sa-tips">
+                  <div class="sa-tips-wrap">
+                    <div class="sa-tips-hdr">
+                      <span class="sa-tips-hdr-icon">💡</span>
+                      <span class="sa-tips-hdr-title">Tips For You</span>
+                      <span class="sa-tips-hdr-icon">💡</span>
+                    </div>
+                    <div class="sa-tip-toggle-row">
+                      <button class="sa-tip-toggle-btn" id="sa-sch-btn" onclick="saTip('school')">
+                        <span class="ti">🏫</span>Click for School Day Tips
+                      </button>
+                      <button class="sa-tip-toggle-btn" id="sa-reg-btn" onclick="saTip('regular')">
+                        <span class="ti">🌤️</span>Click for a Regular Day Tips
+                      </button>
+                    </div>
+                    <div class="sa-tip-text-box" id="sa-tip-school">
+                      <p>1. After washing face and finishing quick activities, check your email and messages.</p>
+                      <p>2. Make a list of what you are going to do for the day.</p>
+                      <p>3. After finishing breakfast, check if you have something to do.</p>
+                      <p>4. After finishing all daily work make sure you are prepared to go to bed by 10:00 PM.</p>
+                      <p>5. Set alarm for tomorrow morning.</p>
+                    </div>
+                    <div class="sa-tip-text-box" id="sa-tip-regular">
+                      <p>1. Plan your day the night before.</p>
+                      <p>2. Set 3 main goals for the day and focus on them.</p>
+                      <p>3. Keep your phone away during focused work time.</p>
+                      <p>4. Take a short walk or break every hour to recharge.</p>
+                      <p>5. Reward yourself after finishing your tasks!</p>
+                    </div>
+                  </div>
+                  <div class="sa-nav">
+                    <button class="sa-nb sa-nb-green" onclick="saGo('sa-home')">Home</button>
+                    <button class="sa-nb sa-nb-blue" onclick="saGo('sa-todo')">Next</button>
+                  </div>
+                </div>
+
+                <!-- ADVICE -->
+                <div class="sa-screen" id="sa-advice">
+                  <div class="sa-adv-wrap">
+                    <div class="sa-adv-title">🌟 Advice For You</div>
+                    <div class="sa-adv-left-right">
+                      <div class="sa-adv-btns">
+                        <button class="sa-adv-btn t" onclick="saAdv('tired',this)">When You Feel Tired</button>
+                        <button class="sa-adv-btn b" onclick="saAdv('bored',this)">When You Are Bored</button>
+                        <button class="sa-adv-btn p" onclick="saAdv('planning',this)">When You Are Planning to do Something</button>
+                        <button class="sa-adv-btn f" onclick="saAdv('finished',this)">When You Finished Doing Something</button>
+                      </div>
+                      <div class="sa-adv-img-box" id="sa-adv-img">
+                        <!-- steps/stairs image placeholder -->
+                        <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="80" height="80" fill="#e3f2fd" rx="6"/>
+                          <rect x="50" y="30" width="22" height="42" fill="#42a5f5"/>
+                          <rect x="30" y="42" width="22" height="30" fill="#64b5f6"/>
+                          <rect x="10" y="54" width="22" height="18" fill="#90caf9"/>
+                          <text x="40" y="18" text-anchor="middle" font-size="8" fill="#1565c0" font-weight="bold">NEXT</text>
+                          <text x="40" y="27" text-anchor="middle" font-size="7" fill="#1565c0">STEPS</text>
+                          <text x="40" y="76" text-anchor="middle" font-size="6" fill="#555" id="sa-adv-subtitle">Pick a mood</text>
+                        </svg>
+                      </div>
+                    </div>
+                    <div class="sa-adv-content-box" id="sa-adv-box">
+                      <em style="font-size:9px;color:#aaa;">Select a mood above to see advice.</em>
+                    </div>
+                  </div>
+                  <div class="sa-nav">
+                    <button class="sa-nb sa-nb-green" onclick="saGo('sa-home')">Home</button>
+                    <button class="sa-nb sa-nb-blue" onclick="saGo('sa-todo')">Back</button>
+                  </div>
+                </div>
+
+              </div><!-- end SA -->
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <ul class="card-feats">
+            <li>Green "Welcome" home screen with illustration, just like the original</li>
+            <li>To-do list with checkboxes, editable text fields, and trash buttons</li>
+            <li>Tips screen with School Day and Regular Day toggle buttons and numbered tips</li>
+            <li>Advice screen with 4 colored buttons (Tired, Bored, Planning, Finished)</li>
+          </ul>
+          <a class="open-link" href="https://studio.code.org/projects/applab/6987fa71-8e3b-4ff2-8f52-3933101e64d8" target="_blank">↗ Open on Code.org</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ═══════════ PROJECT 2: OUTFIT APP ═══════════ -->
+    <article class="proj-card reveal">
+      <div class="card-hdr">
+        <div class="card-meta"><span class="card-num">02</span><span class="card-tag">👗 Lifestyle</span></div>
+        <h3 class="card-title">Outfit Recommendation App</h3>
+        <p class="card-desc-txt">Enter your name, occasion, gender, and temperature to get a personalized outfit suggestion.</p>
+      </div>
+      <div class="card-body">
+        <div class="card-app-pane">
+          <div class="phone">
+            <div class="phone-topbar"><div class="phone-notch"></div></div>
+            <div class="phone-screen">
+              <div class="oa" id="OA">
+                <div class="oa-title-row">
+                  <span class="oa-title">What Should I Wear?</span>
+                  <span class="oa-icon">👔</span>
+                </div>
+
+                <div class="oa-field">
+                  <input class="oa-inp" id="oa-name" type="text" placeholder="Enter your name" oninput="oaUpdate()"/>
+                </div>
+
+                <div class="oa-field">
+                  <div class="oa-row-box">
+                    <span class="oa-row-label">Type of Occasion</span>
+                    <select class="oa-sel" id="oa-occ" onchange="oaUpdate()">
+                      <option value="">--</option>
+                      <option value="wedding">wedding</option>
+                      <option value="birthday party">birthday party</option>
+                      <option value="BBQ">BBQ</option>
+                      <option value="casual">casual outing</option>
+                    </select>
+                    <span id="oa-occ-pill" class="oa-sel-pill" style="display:none"></span>
+                  </div>
+                </div>
+
+                <div class="oa-field">
+                  <div class="oa-row-box">
+                    <span class="oa-row-label">Gender</span>
+                    <select class="oa-sel" id="oa-gen" onchange="oaUpdate()">
+                      <option value="">--</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                    <span id="oa-gen-pill" class="oa-sel-pill-dark" style="display:none"></span>
+                  </div>
+                </div>
+
+                <div class="oa-field">
+                  <div class="oa-temp-row">
+                    <div class="oa-temp-label-row">
+                      <span>Temperature in the Area</span>
+                      <span id="oa-temp-val">72°F</span>
+                    </div>
+                    <input class="oa-slider" id="oa-temp" type="range" min="0" max="100" value="72" oninput="oaUpdate()"/>
+                  </div>
+                </div>
+
+                <div class="oa-output-box" id="oa-out">Fill in your details above to get a recommendation!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <ul class="card-feats">
+            <li>White layout matching the original — "What Should I Wear?" title with shirt icon</li>
+            <li>Name input, Occasion row with green pill, Gender row with dark pill</li>
+            <li>Purple temperature slider from 0–100°F</li>
+            <li>Output box updates live with your personalized recommendation</li>
+          </ul>
+          <a class="open-link" href="https://studio.code.org/projects/applab/LtxAHq7MUJuwfIHf2NhuQGFKGUxZ-zspmIMHC9gFstI" target="_blank">↗ Open on Code.org</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ═══════════ PROJECT 3: FLAG GAME ═══════════ -->
+    <article class="proj-card reveal">
+      <div class="card-hdr">
+        <div class="card-meta"><span class="card-num">03</span><span class="card-tag">🎮 Game</span></div>
+        <h3 class="card-title">Flag Guessing Game</h3>
+        <p class="card-desc-txt">Identify countries by their flags. Score 10 points to win!</p>
+      </div>
+      <div class="card-body">
+        <div class="card-app-pane">
+          <div class="phone">
+            <div class="phone-topbar"><div class="phone-notch"></div></div>
+            <div class="phone-screen">
+              <div class="fa" id="FA">
+
+                <!-- MAIN GAME -->
+                <div class="fa-main" id="fa-main">
+                  <div class="fa-title-box">
+                    <p>Test Your Geography Skills by Guessing the Flag</p>
+                  </div>
+                  <div class="fa-pts-wrap">
+                    <div class="fa-pts-label">Point(s)</div>
+                    <div class="fa-pts-score-box"><span class="fa-pts-val" id="fa-pts">0</span></div>
+                  </div>
+                  <div class="fa-flag-area">
+                    <img id="fa-flag-img" src="" alt="" style="display:none"/>
+                    <span class="fa-no-img" id="fa-flag-loading">🏳️</span>
+                  </div>
+                  <input class="fa-answer-inp" id="fa-ans" type="text" placeholder="Enter Your Answer"/>
+                  <button class="fa-btn-yellow" id="fa-next-btn" onclick="faNext()" style="display:none">Next Guess</button>
+                  <button class="fa-btn-orange" onclick="faCheck()">Check Answer</button>
+                  <div class="fa-feedback" id="fa-fb"></div>
+                </div>
+
+                <!-- SCORE SCREEN -->
+                <div class="fa-score-scr" id="fa-score">
+                  <div class="fa-score-title">Your Score</div>
+                  <div class="fa-score-box">
+                    <span class="fa-score-num" id="fa-final-score">0</span>
+                    <span class="fa-score-denom">/10</span>
+                  </div>
+                  <button class="fa-restart" onclick="faRestart()">Restart</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-info">
+          <ul class="card-feats">
+            <li>Red/coral background exactly matching the original screenshot</li>
+            <li>White "Point(s)" score box, large white flag area, red answer input</li>
+            <li>Yellow "Next Guess" + orange "Check Answer" buttons</li>
+            <li>Win screen: "Your Score __/10" with yellow Restart button</li>
+          </ul>
+          <a class="open-link" href="https://studio.code.org/projects/applab/4224213a-165f-4c90-96a3-5e7f3cd816fd" target="_blank">↗ Open on Code.org</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<section id="about">
+<div class="sec">
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p class="sec-label">About Me</p>
+      <h2>A Student Who Loves to <span class="grad">Build Things</span></h2>
+      <p>I'm an AP Computer Science Principles student who spent this year turning ideas into real, working applications. Each project started as a simple question — <em>what if an app could do this?</em> — and became something I'm genuinely proud of.</p>
+      <p>Through this course I've learned how to think like a developer: breaking big problems into small steps, debugging with patience, and designing for the person using the app.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-chip"><div class="skill-chip-icon">🧩</div><div class="skill-chip-name">App Lab</div><div class="skill-chip-sub">Code.org platform</div></div>
+      <div class="skill-chip"><div class="skill-chip-icon">💡</div><div class="skill-chip-name">UI Design</div><div class="skill-chip-sub">Layout &amp; usability</div></div>
+      <div class="skill-chip"><div class="skill-chip-icon">🔢</div><div class="skill-chip-name">Logic &amp; Data</div><div class="skill-chip-sub">Variables, lists, loops</div></div>
+      <div class="skill-chip"><div class="skill-chip-icon">🎮</div><div class="skill-chip-name">Game Design</div><div class="skill-chip-sub">Interaction &amp; scoring</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<footer><p>Built with 💙 for AP CSP · <span class="footer-grad">Class of 2025–26</span></p></footer>
+
+<script>
+// ═══════ SCHEDULE APP ═══════
+var saTasks=[{id:1,v:'',d:false},{id:2,v:'',d:false},{id:3,v:'',d:false},{id:4,v:'',d:false}];
+function saGo(id){
+  document.querySelectorAll('#SA .sa-screen').forEach(function(s){s.classList.remove('active');});
+  var el=document.getElementById(id); if(el) el.classList.add('active');
+}
+function saRender(){
+  var wrap=document.getElementById('sa-task-list'); if(!wrap) return;
+  wrap.innerHTML='';
+  saTasks.forEach(function(t){
+    var r=document.createElement('div'); r.className='sa-task-row';
+    r.innerHTML='<input type="checkbox" class="sa-cb"'+(t.d?' checked':'')+' onchange="saTog('+t.id+',this.checked)"/>'+
+      '<input class="sa-ti'+(t.d?' done':'')+'" type="text" placeholder="Add a task..." value="'+t.v.replace(/"/g,'&quot;')+'" oninput="saTxt('+t.id+',this.value)"/>'+
+      '<button class="sa-del" onclick="saDel('+t.id+')">🗑</button>';
+    wrap.appendChild(r);
+  });
+}
+function saTog(id,v){saTasks.forEach(function(t){if(t.id===id)t.d=v;});saRender();}
+function saTxt(id,v){saTasks.forEach(function(t){if(t.id===id)t.v=v;});}
+function saDel(id){saTasks.forEach(function(t){if(t.id===id){t.v='';t.d=false;}});saRender();}
+function saTip(type){
+  ['sa-tip-school','sa-tip-regular'].forEach(function(x){document.getElementById(x).classList.remove('active');});
+  ['sa-sch-btn','sa-reg-btn'].forEach(function(x){document.getElementById(x).classList.remove('active');});
+  if(type==='school'){document.getElementById('sa-tip-school').classList.add('active');document.getElementById('sa-sch-btn').classList.add('active');}
+  else{document.getElementById('sa-tip-regular').classList.add('active');document.getElementById('sa-reg-btn').classList.add('active');}
+}
+var saAdvData={
+  tired:'Do not wait to get something assigned. Figure out what to do next right now. Take a 20-min power nap, drink water, and re-energize!',
+  bored:'Try the Pomodoro technique — 25 min work, 5 min break. Break big tasks into small pieces to stay engaged!',
+  planning:'Write down every step needed. Start with the hardest task first when your energy is highest. Set a clear deadline!',
+  finished:'Great job! Take a real break — go outside, grab a snack. You earned it. Then plan your next task.'
+};
+function saAdv(type,btn){
+  document.getElementById('sa-adv-box').classList.add('active');
+  document.getElementById('sa-adv-box').textContent=saAdvData[type];
+  document.querySelectorAll('.sa-adv-btn').forEach(function(b){b.style.outline='';});
+  btn.style.outline='2px solid rgba(255,255,255,.6)';
+}
+saRender();
+
+// ═══════ OUTFIT APP ═══════
+function oaUpdate(){
+  var name=document.getElementById('oa-name').value;
+  var occ=document.getElementById('oa-occ').value;
+  var gen=document.getElementById('oa-gen').value;
+  var temp=parseInt(document.getElementById('oa-temp').value);
+  document.getElementById('oa-temp-val').textContent=temp+'°F';
+  // update pills
+  var op=document.getElementById('oa-occ-pill');
+  var gp=document.getElementById('oa-gen-pill');
+  if(occ){op.textContent=occ;op.style.display='inline-block';}else{op.style.display='none';}
+  if(gen){gp.textContent=gen;gp.style.display='inline-block';}else{gp.style.display='none';}
+  if(!name||!occ||!gen){document.getElementById('oa-out').textContent='Fill in your details above to get a recommendation!';return;}
+  var rec;
+  if(occ==='wedding'&&gen==='Male') rec='a dark suit 🤵';
+  else if(occ==='wedding'&&gen==='Female') rec='a maxi dress 👗';
+  else if(occ==='birthday party'&&gen==='Male') rec='a tuxedo 🎩';
+  else if(occ==='BBQ'&&temp<=40) rec='a sweater knit coat 🧥';
+  else if(occ==='BBQ'&&temp>=45&&gen==='Female') rec='a draped dress 👘';
+  else rec='a t-shirt 👕';
+  document.getElementById('oa-out').textContent='Hello '+name+'! It sounds like you want to go to a '+occ+' event and the temperature in there is '+temp+'°F. I recommend '+rec+'.';
+}
+
+// ═══════ FLAG GAME ═══════
+var faList=[
+  {name:'France',f:'https://flagcdn.com/w160/fr.png'},
+  {name:'Japan',f:'https://flagcdn.com/w160/jp.png'},
+  {name:'Brazil',f:'https://flagcdn.com/w160/br.png'},
+  {name:'Canada',f:'https://flagcdn.com/w160/ca.png'},
+  {name:'Germany',f:'https://flagcdn.com/w160/de.png'},
+  {name:'Italy',f:'https://flagcdn.com/w160/it.png'},
+  {name:'Mexico',f:'https://flagcdn.com/w160/mx.png'},
+  {name:'Australia',f:'https://flagcdn.com/w160/au.png'},
+  {name:'Spain',f:'https://flagcdn.com/w160/es.png'},
+  {name:'South Korea',f:'https://flagcdn.com/w160/kr.png'},
+  {name:'India',f:'https://flagcdn.com/w160/in.png'},
+  {name:'China',f:'https://flagcdn.com/w160/cn.png'},
+  {name:'Nigeria',f:'https://flagcdn.com/w160/ng.png'},
+  {name:'Egypt',f:'https://flagcdn.com/w160/eg.png'},
+  {name:'Argentina',f:'https://flagcdn.com/w160/ar.png'},
+  {name:'Portugal',f:'https://flagcdn.com/w160/pt.png'},
+  {name:'Sweden',f:'https://flagcdn.com/w160/se.png'},
+  {name:'Greece',f:'https://flagcdn.com/w160/gr.png'},
+  {name:'Turkey',f:'https://flagcdn.com/w160/tr.png'},
+  {name:'Netherlands',f:'https://flagcdn.com/w160/nl.png'},
+  {name:'Poland',f:'https://flagcdn.com/w160/pl.png'},
+  {name:'Thailand',f:'https://flagcdn.com/w160/th.png'},
+  {name:'Ukraine',f:'https://flagcdn.com/w160/ua.png'},
+  {name:'Kenya',f:'https://flagcdn.com/w160/ke.png'},
+  {name:'United Kingdom',f:'https://flagcdn.com/w160/gb.png'},
+  {name:'United States',f:'https://flagcdn.com/w160/us.png'},
+  {name:'Indonesia',f:'https://flagcdn.com/w160/id.png'},
+  {name:'South Africa',f:'https://flagcdn.com/w160/za.png'},
+  {name:'Saudi Arabia',f:'https://flagcdn.com/w160/sa.png'},
+  {name:'Russia',f:'https://flagcdn.com/w160/ru.png'}
+];
+var faPts=0, faCur=null;
+function faLoad(){
+  var c=faList[Math.floor(Math.random()*faList.length)]; faCur=c;
+  var img=document.getElementById('fa-flag-img');
+  var ld=document.getElementById('fa-flag-loading');
+  img.style.display='none'; ld.style.display='block'; ld.textContent='🏳️';
+  img.onload=function(){ld.style.display='none';img.style.display='block';};
+  img.onerror=function(){ld.textContent='⚠️';};
+  img.src=c.f;
+  document.getElementById('fa-fb').textContent='';
+  document.getElementById('fa-next-btn').style.display='none';
+  document.getElementById('fa-ans').value='';
+}
+function faCheck(){
+  var a=document.getElementById('fa-ans').value.trim();
+  var fb=document.getElementById('fa-fb');
+  if(!a) return;
+  if(a.toLowerCase()===faCur.name.toLowerCase()){
+    faPts++;
+    document.getElementById('fa-pts').textContent=faPts;
+    fb.textContent="You're Correct! Yay!";
+    if(faPts>=10){
+      setTimeout(function(){
+        document.getElementById('fa-main').classList.add('hidden');
+        var sc=document.getElementById('fa-score'); sc.classList.add('show');
+        document.getElementById('fa-final-score').textContent=faPts;
+      },700);
+    } else { setTimeout(faLoad,800); }
+  } else {
+    fb.textContent='Not Quiet, the Answer is '+faCur.name;
+    document.getElementById('fa-next-btn').style.display='block';
+  }
+}
+function faNext(){ faLoad(); }
+function faRestart(){
+  faPts=0;
+  document.getElementById('fa-pts').textContent='0';
+  document.getElementById('fa-score').classList.remove('show');
+  document.getElementById('fa-main').classList.remove('hidden');
+  faLoad();
+}
+document.getElementById('fa-ans').addEventListener('keydown',function(e){if(e.key==='Enter')faCheck();});
+faLoad();
+
+// ═══════ SCROLL REVEAL ═══════
+var revs=document.querySelectorAll('.reveal');
+new IntersectionObserver(function(entries){
+  entries.forEach(function(e,i){
+    if(e.isIntersecting){e.target.style.transitionDelay=(i*.07)+'s';e.target.classList.add('visible');}
+  });
+},{threshold:0.1}).observe && revs.forEach(function(el){
+  new IntersectionObserver(function(entries){
+    entries.forEach(function(e){if(e.isIntersecting){e.target.style.transitionDelay='.05s';e.target.classList.add('visible');}});
+  },{threshold:0.1}).observe(el);
+});
+</script>
+</body>
+</html>
